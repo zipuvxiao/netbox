@@ -18,6 +18,7 @@ from django.utils.safestring import mark_safe
 
 from dcim.constants import CONNECTION_STATUS_CONNECTED
 from utilities.utils import foreground_color
+from utilities.validators import TagValidator
 from .constants import *
 
 
@@ -221,6 +222,33 @@ class CustomFieldChoice(models.Model):
         pk = self.pk
         super(CustomFieldChoice, self).delete(using, keep_parents)
         CustomFieldValue.objects.filter(field__type=CF_TYPE_SELECT, serialized_value=str(pk)).delete()
+
+
+#
+# Tags
+#
+
+class Tag(models.Model):
+    content_type = models.ForeignKey(
+        to=ContentType,
+        on_delete=models.CASCADE
+    )
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey(
+        ct_field='content_type',
+        fk_field='object_id'
+    )
+    name = models.CharField(
+        max_length=50,
+        validators=[TagValidator]
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+        unique_together = ['content_type', 'object_id', 'name']
 
 
 #

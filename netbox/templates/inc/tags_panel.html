@@ -1,0 +1,15 @@
+{% load form_helpers %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="fa fa-tags" aria-hidden="true"></span>
+        <strong>Tags</strong>
+    </div>
+    <ul class="panel-body list-inline">
+        {% for tag in tags %}
+            <li class="list-item">
+                <a href="?tag={{ tag.name }}">{{ tag.name }} ({{ tag.count }})</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

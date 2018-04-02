@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import re
 
-from django.core.validators import _lazy_re_compile, URLValidator
+from django.core.validators import _lazy_re_compile, RegexValidator, URLValidator
 
 
 class EnhancedURLValidator(URLValidator):
@@ -29,3 +29,8 @@ class EnhancedURLValidator(URLValidator):
         r'(?:[/?#][^\s]*)?'                 # Path
         r'\Z', re.IGNORECASE)
     schemes = AnyURLScheme()
+
+
+class TagValidator(RegexValidator):
+    regex = r'^[\w\-:]+$',
+    message = 'Only letters, numbers, underscores, hyphens, and colons are permitted.'

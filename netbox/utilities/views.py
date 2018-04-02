@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import transaction, IntegrityError
-from django.db.models import ProtectedError
+from django.db.models import Count, ProtectedError
 from django.forms import CharField, Form, ModelMultipleChoiceField, MultipleHiddenInput, Textarea
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.exceptions import TemplateSyntaxError
@@ -19,7 +19,7 @@ from django.utils.safestring import mark_safe
 from django.views.generic import View
 from django_tables2 import RequestConfig
 
-from extras.models import CustomField, CustomFieldValue, ExportTemplate, UserAction
+from extras.models import CustomField, CustomFieldValue, ExportTemplate, Tag, UserAction
 from utilities.utils import queryset_to_csv
 from utilities.forms import BootstrapMixin, CSVDataField
 from .constants import M2M_FIELD_TYPES
@@ -114,6 +114,18 @@ class ObjectListView(View):
         perm_base_name = '{}.{{}}_{}'.format(model._meta.app_label, model._meta.model_name)
         permissions = {p: request.user.has_perm(perm_base_name.format(p)) for p in ['add', 'change', 'delete']}
 
+        # Retrieve the most popular tags (up to 50) for this model
+        if hasattr(model, 'tags'):
+            tags = Tag.objects.values('name').filter(
+                content_type=content_type
+            ).annotate(
+                count=Count('name')
+            ).order_by(
+                '-count', 'name'
+            )[:50]
+        else:
+            tags = None
+
         # Construct the table based on the user's permissions
         table = self.table(self.queryset)
         if 'pk' in table.base_columns and (permissions['change'] or permissions['delete']):
@@ -131,6 +143,7 @@ class ObjectListView(View):
             'table': table,
             'permissions': permissions,
             'filter_form': self.filter_form(request.GET, label_suffix='') if self.filter_form else None,
+            'tags': tags,
         }
         context.update(self.extra_context())
 
