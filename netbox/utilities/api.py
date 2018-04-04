@@ -11,8 +11,10 @@ from rest_framework import mixins
 from rest_framework.exceptions import APIException
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
-from rest_framework.serializers import Field, ModelSerializer, ValidationError
+from rest_framework.serializers import Field, ModelSerializer, RelatedField, ValidationError
 from rest_framework.viewsets import GenericViewSet, ViewSet
+
+from extras.models import Tag
 
 WRITE_OPERATIONS = ['create', 'update', 'partial_update', 'delete']
 
@@ -34,6 +36,19 @@ class IsAuthenticatedOrLoginNotRequired(BasePermission):
         if not settings.LOGIN_REQUIRED:
             return True
         return request.user.is_authenticated
+
+
+#
+# Fields
+#
+
+class TagField(RelatedField):
+
+    def to_internal_value(self, data):
+        return Tag(name=data)
+
+    def to_representation(self, value):
+        return value.name
 
 
 #
