@@ -7,6 +7,7 @@ from netaddr import EUI
 from netaddr.core import AddrFormatError
 
 from extras.filters import CustomFieldFilterSet
+from extras.models import Tag
 from tenancy.models import Tenant
 from utilities.filters import NullableCharFieldFilter, NumericInFilter
 from virtualization.models import Cluster
@@ -496,6 +497,11 @@ class DeviceFilter(CustomFieldFilterSet, django_filters.FilterSet):
         name='virtual_chassis',
         queryset=VirtualChassis.objects.all(),
         label='Virtual chassis (ID)',
+    )
+    tag = django_filters.ModelMultipleChoiceFilter(
+        name='tags__name',
+        queryset=Tag.objects.all(),
+        to_field_name='name'
     )
 
     class Meta:

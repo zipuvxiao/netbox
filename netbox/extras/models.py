@@ -13,6 +13,7 @@ from django.db import models
 from django.db.models import Q
 from django.http import HttpResponse
 from django.template import Template, Context
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
@@ -243,12 +244,20 @@ class Tag(models.Model):
         validators=[TagValidator]
     )
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ['name']
         unique_together = ['content_type', 'object_id', 'name']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        if not self.content_type or not self.name:
+            return None
+        app = self.content_type.app_label
+        model = self.content_type.model
+        url = reverse('{}:{}_list'.format(app, model))
+        return '{}?tag={}'.format(url, self.name)
 
 
 #

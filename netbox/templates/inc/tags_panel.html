@@ -8,7 +8,7 @@
     <ul class="panel-body list-inline">
         {% for tag in tags %}
             <li class="list-item">
-                <a href="?tag={{ tag.name }}">{{ tag.name }} ({{ tag.count }})</a>
+                <a href="?tag={{ tag.name }}" class="btn btn-small btn-default">{{ tag.name }} <span class="badge">{{ tag.count }}</span></a>
             </li>
         {% endfor %}
     </ul>

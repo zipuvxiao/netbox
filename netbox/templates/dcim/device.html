@@ -96,6 +96,12 @@
                         {% endif %}
                     </td>
                 </tr>
+                <tr>
+                    <td>Tags</td>
+                    <td>
+                        {% include 'inc/tags_list.html' with tags=device.tags.all %}
+                    </td>
+                </tr>
             </table>
         </div>
         {% if vc_members %}

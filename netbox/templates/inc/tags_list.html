@@ -1,0 +1,11 @@
+{% if tags %}
+    <ul class="list-inline">
+        {% for tag in tags %}
+            <li class="list-item">
+                <a href="{{ tag.get_absolute_url }}" class="label label-default">{{ tag }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <span class="text-muted">None</span>
+{% endif %}
