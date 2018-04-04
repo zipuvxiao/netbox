@@ -234,7 +234,7 @@ class Tag(models.Model):
         on_delete=models.CASCADE
     )
     object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey(
+    obj = GenericForeignKey(
         ct_field='content_type',
         fk_field='object_id'
     )
