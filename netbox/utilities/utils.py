@@ -43,7 +43,7 @@ def queryset_to_csv(queryset):
 
     # Start with the column headers
     headers = ','.join(queryset.model.csv_headers)
-    output.append(headers)
+    output.append('\ufeff' + headers)
 
     # Iterate through the queryset
     for obj in queryset:
