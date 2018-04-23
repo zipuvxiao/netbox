@@ -253,7 +253,7 @@ class RackDetailTable(RackTable):
         template_code=RACK_DEVICE_COUNT,
         verbose_name='Devices'
     )
-    get_utilization = tables.TemplateColumn(UTILIZATION_GRAPH, orderable=False, verbose_name='Utilization')
+    get_utilization = tables.TemplateColumn(UTILIZATION_GRAPH, orderable=False, verbose_name='机柜使用率')
 
     class Meta(RackTable.Meta):
         fields = (
@@ -470,29 +470,29 @@ class PlatformTable(BaseTable):
 class DeviceTable(BaseTable):
     pk = ToggleColumn()
     name = tables.TemplateColumn(template_code=DEVICE_LINK)
-    status = tables.TemplateColumn(template_code=STATUS_LABEL, verbose_name='Status')
+    status = tables.TemplateColumn(template_code=STATUS_LABEL, verbose_name='状态')
     tenant = tables.TemplateColumn(template_code=COL_TENANT)
     site = tables.LinkColumn('dcim:site', args=[Accessor('site.slug')])
     rack = tables.LinkColumn('dcim:rack', args=[Accessor('rack.pk')])
-    device_role = tables.TemplateColumn(DEVICE_ROLE, verbose_name='Role')
+    #device_role = tables.TemplateColumn(DEVICE_ROLE, verbose_name='Role')
     device_type = tables.LinkColumn(
-        'dcim:devicetype', args=[Accessor('device_type.pk')], verbose_name='Type',
+        'dcim:devicetype', args=[Accessor('device_type.pk')], verbose_name='设备型号',
         text=lambda record: record.device_type.full_name
     )
 
     class Meta(BaseTable.Meta):
         model = Device
-        fields = ('pk', 'name', 'status', 'tenant', 'site', 'rack', 'device_role', 'device_type')
+        fields = ('pk', 'name', 'status', 'tenant', 'site', 'rack', 'device_type')
 
 
 class DeviceDetailTable(DeviceTable):
-    primary_ip = tables.TemplateColumn(
-        orderable=False, verbose_name='IP Address', template_code=DEVICE_PRIMARY_IP
-    )
+    #primary_ip = tables.TemplateColumn(
+    #    orderable=False, verbose_name='IP Address', template_code=DEVICE_PRIMARY_IP
+    #)
 
     class Meta(DeviceTable.Meta):
         model = Device
-        fields = ('pk', 'name', 'status', 'tenant', 'site', 'rack', 'device_role', 'device_type', 'primary_ip')
+        fields = ('pk', 'name', 'site', 'rack', 'device_type', 'asset_tag', 'tenant', 'serial', 'status')
 
 
 class DeviceImportTable(BaseTable):
