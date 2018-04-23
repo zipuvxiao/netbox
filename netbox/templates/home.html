@@ -6,48 +6,48 @@
     <div class="col-sm-6 col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>Organization</strong>
+                <strong>组织架构</strong>
             </div>
             <div class="list-group">
                 <div class="list-group-item">
                     <span class="badge pull-right">{{ stats.site_count }}</span>
-                    <h4 class="list-group-item-heading"><a href="{% url 'dcim:site_list' %}">Sites</a></h4>
-                    <p class="list-group-item-text text-muted">Geographic locations</p>
+                    <h4 class="list-group-item-heading"><a href="{% url 'dcim:site_list' %}">机房模块</a></h4>
+                    <p class="list-group-item-text text-muted">管理机房模块和位置</p>
                 </div>
                 <div class="list-group-item">
                     <span class="badge pull-right">{{ stats.tenant_count }}</span>
-                    <h4 class="list-group-item-heading"><a href="{% url 'tenancy:tenant_list' %}">Tenants</a></h4>
-                    <p class="list-group-item-text text-muted">Customers or departments</p>
+                    <h4 class="list-group-item-heading"><a href="{% url 'tenancy:tenant_list' %}">客户</a></h4>
+                    <p class="list-group-item-text text-muted">管理客户和使用部门</p>
                 </div>
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>DCIM</strong>
+                <strong>设备管理</strong>
             </div>
             <div class="list-group">
                 <div class="list-group-item">
                     <span class="badge pull-right">{{ stats.rack_count }}</span>
-                    <h4 class="list-group-item-heading"><a href="{% url 'dcim:rack_list' %}">Racks</a></h4>
-                    <p class="list-group-item-text text-muted">Equipment racks, optionally organized by group</p>
+                    <h4 class="list-group-item-heading"><a href="{% url 'dcim:rack_list' %}">机柜</a></h4>
+                    <p class="list-group-item-text text-muted">管理存放设备的机柜和位置</p>
                 </div>
                 <div class="list-group-item">
                     <span class="badge pull-right">{{ stats.device_count }}</span>
-                    <h4 class="list-group-item-heading"><a href="{% url 'dcim:device_list' %}">Devices</a></h4>
-                    <p class="list-group-item-text text-muted">Rack-mounted network equipment, servers, and other devices</p>
+                    <h4 class="list-group-item-heading"><a href="{% url 'dcim:device_list' %}">设备</a></h4>
+                    <p class="list-group-item-text text-muted">管理服务器，交换机和ODF等设备</p>
                 </div>
                 <div class="list-group-item">
-                    <h4 class="list-group-item-heading">Connections</h4>
+                    <h4 class="list-group-item-heading">设备连线</h4>
                     <span class="badge pull-right">{{ stats.interface_connections_count }}</span>
-                    <p style="padding-left: 20px;"><a href="{% url 'dcim:interface_connections_list' %}">Interfaces</a></p>
+                    <p style="padding-left: 20px;"><a href="{% url 'dcim:interface_connections_list' %}">网络接口</a></p>
                     <span class="badge pull-right">{{ stats.console_connections_count }}</span>
-                    <p style="padding-left: 20px;"><a href="{% url 'dcim:console_connections_list' %}">Console</a></p>
+                    <p style="padding-left: 20px;"><a href="{% url 'dcim:console_connections_list' %}">Console管理口</a></p>
                     <span class="badge pull-right">{{ stats.power_connections_count }}</span>
-                    <p class="list-group-item-text" style="padding-left: 20px;"><a href="{% url 'dcim:power_connections_list' %}">Power</a></p>
+                    <p class="list-group-item-text" style="padding-left: 20px;"><a href="{% url 'dcim:power_connections_list' %}">电源接口</a></p>
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
+        <!--<div class="panel panel-default">
             <div class="panel-heading">
                 <strong>Virtualization</strong>
             </div>
@@ -63,10 +63,10 @@
                     <p class="list-group-item-text text-muted">Virtual compute instances running inside clusters</p>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
     <div class="col-sm-6 col-md-4">
-        <div class="panel panel-default">
+        <!--<div class="panel panel-default">
             <div class="panel-heading">
                 <strong>IPAM</strong>
             </div>
@@ -97,21 +97,21 @@
                     <p class="list-group-item-text text-muted">Layer two domains, identified by VLAN ID</p>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>Circuits</strong>
+                <strong>光纤跳线</strong>
             </div>
             <div class="list-group">
                 <div class="list-group-item">
                     <span class="badge pull-right">{{ stats.provider_count }}</span>
-                    <h4 class="list-group-item-heading"><a href="{% url 'circuits:provider_list' %}">Providers</a></h4>
-                    <p class="list-group-item-text text-muted">Organizations which provide circuit connectivity</p>
+                    <h4 class="list-group-item-heading"><a href="{% url 'circuits:provider_list' %}">链路商</a></h4>
+                    <p class="list-group-item-text text-muted">管理光缆供应商</p>
                 </div>
                 <div class="list-group-item">
                     <span class="badge pull-right">{{ stats.circuit_count }}</span>
-                    <h4 class="list-group-item-heading"><a href="{% url 'circuits:circuit_list' %}">Circuits</a></h4>
-                    <p class="list-group-item-text text-muted">Communication links for Internet transit, peering, and other services</p>
+                    <h4 class="list-group-item-heading"><a href="{% url 'circuits:circuit_list' %}">跳线</a></h4>
+                    <p class="list-group-item-text text-muted">管理跳线信息</p>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
     <div class="col-sm-6 col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>Global Topology Maps</strong>
+                <strong>拓扑图</strong>
             </div>
             {% if topology_maps %}
                 <table class="table table-hover panel-body">
@@ -167,7 +167,7 @@
         {% endif %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>Recent Activity</strong>
+                <strong>最近修改</strong>
             </div>
             <div class="list-group">
                 {% for a in recent_activity %}
